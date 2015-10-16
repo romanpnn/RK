@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>RK_1</title>
+</head>
+<body>
+	<h1>
+		Задание 1. С помощью алгоритма Брезенхема построить 
+		отрезок прямой с координатами: A(100, 0) и B(i+10, 100), где i - номер 
+		по журналу
+	</h1>
+	<canvas id="canvas1" height="300" width="300"></canvas>
+	<script>
+		var canva = document.getElementById("canvas1");
+		var canv = canva.getContext("2d");
+
+		var x1=100;
+		var y1=0;
+		var i=15;
+		var x2=10+i;
+		var y2=100;
+		
+		var dx = (x2 - x1 >= 0 ? 1 : -1);
+		var dy = (y2 - y1 >= 0 ? 1 : -1);
+		var lengthX = Math.abs(x2 - x1);
+		var lengthY = Math.abs(y2 - y1);
+		var length = Math.max(lengthX, lengthY);
+		if (length == 0) {
+			canv.fillRect(x1, y1, 1, 1);
+		}
+
+		if (lengthY <= lengthX) {
+			
+			var x = x1;
+			var y = y1;
+			var d = -lengthX;
+			
+			length++;
+			while (length--) {
+				canv.fillRect(x, y, 1, 1);
+				x += dx;
+				d += 2 * lengthY;
+				if (d > 0) {
+					d -= 2 * lengthX;
+					y += dy;
+				}
+			}
+		} else {
+			
+			var x = x1;
+			var y = y1;
+			var d = -lengthY;
+			
+			length++;
+			while (length--) {
+				canv.fillRect(x, y, 1, 1);
+				y += dy;
+				d += 2 * lengthX;
+				if (d > 0) {
+					d -= 2 * lengthY;
+					x += dx;
+				}
+			}
+		}
+
+	</script>
+	<h1>
+		Задание 2. Задан массив в переменной array. Необходимо 
+		построить отрезки прямых.
+	</h1>
+	<canvas id="canvas2" height="300" width="300"></canvas>
+	<script>
+		var canva = document.getElementById("canvas2");
+		var canv = canva.getContext("2d");
+
+		var array=[		[1, 18, 37, 52, 65, 90, 91],
+					[1, 18, 37, 52, 65, 100, 101],
+					[1, 18, 37, 52, 65, 110, 111],
+					[1, 18, 37, 52, 65, 120, 121],
+					[1, 18, 37, 52, 65, 130, 131],
+					[1, 18, 37, 52, 65, 140, 141],
+					[1, 18, 37, 52, 65, 150, 151],	];
+		var nn=0;
+		for (var row=0; row<array.length; row++) {
+			nn=0;
+		for (var i=0; i<array[row].length-1; i++){
+			if (array[row][i+1]-array[row][i]>1) {
+				if ((nn % 2)==0) {
+					for (var j=array[row][i]; j<=array[row][i+1]; j++) {
+						canv.fillRect(j, 10+row, 1, 1);
+					}
+				}
+				nn++;
+			}
+		}
+	}
+	</script>
+</body>
+</html>
